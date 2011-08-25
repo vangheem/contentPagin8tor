@@ -8,3 +8,20 @@ A jQuery plugin that provides a way to paginate the content of a page.
 >>>   split_on : 'h1'
 >>> });
 
+
+Options
+-------
+
+ - split_on : the selector to split pages on. Defaults to "h1"
+ - previous_text : customize the text used for the previous text. Defaults to "Previous Text"
+ - next_text : customize the text used for the next text. Defaults to "Next Page"
+ - show_numbers : show page numbers. Defaults to true
+ - paginator_id : the element id used for the paginator div. Defaults to 'paginator'
+ - indicator_enabled : show page number indicator. Defaults to false
+ - options.indicator_id : page number indicator id. Defaults to "paginator-indicator"
+ - options.indicator_container : the selector for the container to place the indicator in. Defaults to content element.
+ - change_effect : The effect used for changing pages. Defaults to "fade". Only other option is none right now.
+ - single_page_option_available : Show link to display all pages. Defaults to false
+ - single_page_text : The text used for the single page text. Defaults to "Single Page"
+ - fade_in_speed : speed used to fade in page. Defaults to 400
+ - fade_out_speed : speed used to fade out page. Defaults to 400

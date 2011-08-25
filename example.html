@@ -8,13 +8,18 @@
  <script type="text/javascript">
   $().ready(function() {
    $("#content").contentPagin8tor({
-     split_on : 'h1'
+     split_on : 'h1',
+     single_page_option_available : true,
+     fade_in_speed : 1600,
+     fade_out_speed : 200,
+     indicator_enabled : true
    });
   });
  </script>
 </head>
 <body>
   <h1>Example Article</h1>
+  
   <div id="content">
     
     <p>
