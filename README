@@ -25,3 +25,98 @@ Options
  - single_page_text : The text used for the single page text. Defaults to "Single Page"
  - fade_in_speed : speed used to fade in page. Defaults to 400
  - fade_out_speed : speed used to fade out page. Defaults to 400
+ 
+ 
+
+Integration
+===========
+
+With Plone
+----------
+
+- Upgrade jquery to 1.6.2
+  - go to portal_skins
+  - click the find tab
+  - search for `jquery.js`
+  - click on plone_3rdParty/jquery.js
+  - click customize
+  - click choose file, locate jquery 1.6.2
+  - click upload
+- Add jquery.ba-hashchange.min.js(included in this package)
+  - go to portal_skins/custom
+  - add drop down, select "File"
+  - give it the id jquery.ba-hashchange.min.js
+  - choose the file
+  - click add
+- Add jquery.contentPagin8tor.js(included in this package)
+  - go to portal_skins/custom
+  - add drop down, select "File"
+  - give it the id jquery.contentPagin8tor.js
+  - choose the file
+  - click add
+- Add integration js
+  - go to portal_skins/custom
+  - add drop down, select "File"
+  - give it the id contentPagin8tor-integration.js
+  - click save
+  - click file you just made
+  - Add the text:
+    jq().ready(function() {
+     jq("#parent-fieldname-text").contentPagin8tor({
+       split_on : 'h2'
+     });
+    });
+  - click save
+- add to portal_javascripts
+  - go to portal_javascripts
+  - add jquery.ba-hashchange.min.js
+  - add jquery.contentPagin8tor.js
+  - add contentPagin8tor-integration.js
+  
+Optionally on pages
+~~~~~~~~~~~~~~~~~~~
+
+How to make it optional on pages by using a button to toggle it on and off.
+
+- Create toggle python script
+  - go to portal_skins/custom
+  - add "Script (Python)"
+  - name it "toggle-contentpaging"
+  - Add this for the value of the script.
+    request = container.REQUEST
+    response =  request.response
+
+    fake_contributor_name = "contentpaging-enabled"
+    contributors = list(context.Contributors())
+
+    if fake_contributor_name in contributors:
+      contributors.remove(fake_contributor_name)
+      context.setContributors(tuple(contributors))
+    else:
+      contributors.append(fake_contributor_name)
+      context.setContributors(tuple(contributors))
+
+    response.redirect(context.absolute_url() + '/view')
+
+- Create enabled python script
+  - go to portal_skins/custom
+  - add "Script (Python)"
+  - name it "contentpaging-enabled"
+  - Add this for the value of the script:
+    return "contentpaging-enabled" in context.Contributors()
+    
+- conditionally add contentPagin8tor-integration.js
+  - go to portal_javascripts
+  - In the condition field, set it to "context/contentpaging-enabled"
+- add the toggle button
+  - go to portal_actions/object
+  - copy any of them
+  - paste
+  - select it
+  - give it whatever name you'd like. ie "Toggle paging"
+  - for the "URL(Expression)" value, give it "string:${object_url}/toggle-contentpaging"
+  - for the permission, select "Modify portal content"
+  - hit save
+  
+  
+  
