@@ -1,0 +1,10 @@
+Overview
+========
+
+A jQuery plugin that provides a way to paginate the content of a page.
+
+
+>>> $("#content").contentPagin8tor({
+>>>   split_on : 'h1'
+>>> });
+
