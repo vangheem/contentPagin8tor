@@ -1,6 +1,3 @@
-
-
-
 (function($){
   
   $.fn.contentPagin8tor = function(options){
@@ -14,7 +11,7 @@
     if(options.indicator_id === undefined){ options.indicator_id = "paginator-indicator" }
     if(options.indicator_container === undefined){ options.indicator_container = false; }
     if(options.change_effect === undefined){ options.change_effect = "fade" }
-    if(options.single_page_option_available === undefined){ options.single_page_option_available = false }
+    if(options.single_page_option_available === undefined){ options.single_page_option_available = true }
     if(options.single_page_text === undefined){ options.single_page_text = "Single Page" }
     if(options.fade_in_speed === undefined){ options.fade_in_speed = 400 }
     if(options.fade_out_speed === undefined){ options.fade_out_speed = 400 }
@@ -123,12 +120,14 @@
         if(options.change_effect == 'fade'){
           $(ele).css('height', $(ele).height());
           $(tohide).fadeOut(options.fade_out_speed);
+          $(tohide).filter(function(){ return this.tagName == 'OBJECT'}).hide();
           $(ele).find('#' + options.paginator_id).fadeOut(options.fade_out_speed);
           $(tohide).promise().done(function(){
             $(toshow).fadeIn(options.fade_in_speed);
             set_paginator();
             set_indicator();
             $(toshow).promise().done(function(){
+              $(toshow).filter(function(){ return this.tagName == 'OBJECT'}).show();
               locked = false;
               $(ele).css('height', 'auto');
               if(callback != undefined){
